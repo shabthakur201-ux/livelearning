@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  role     ROLE     @default(USER)
+  password String
+  review   Review[]
+}
+
+enum ROLE {
+  USER
+  ADMIN
+}
+
+model Review {
+  id     Int    @id @default(autoincrement())
+  name   String
+  rating Int
+  email  String @db.VarChar(50)
+  userId Int
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model ExternalClients {
+  id            Int      @id @default(autoincrement())
+  companyName   String
+  allowedDomain String
+  status        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orders ExternalOrder[]
+}
+
+model ExternalOrder {
+  id               Int     @id @default(autoincrement())
+  pickup           String
+  dropoff          String
+  pickupLatitude   Decimal
+  pickupLongitude  Decimal
+  dropoffLatitude  Decimal
+  dropoffLongitude Decimal
+
+  ExternalOrderId  String
+  externalClientId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  externalClient ExternalClients @relation(fields: [externalClientId], references: [id])
+}
