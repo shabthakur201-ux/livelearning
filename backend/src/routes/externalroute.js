@@ -4,7 +4,8 @@ import { auth } from "../middleware/externalclientmiddleware.js";
 import { getCronData } from "../controllers/croncontroller.js";
 import { deleteUser, getUsers, LoginUser, registerUser, updateUser } from "../controllers/usercontroller.js";
 import { createReview, deleteReview, getAllreviews, updateReview } from "../controllers/ReviewControllers.js";
-import { Exterordercreate } from "../controllers/EXternalOrder.js";
+import { Exterordercreate } from "../controllers/test.js";
+// import { Exterordercreate } from "../controllers/test.js";
 // import { Exterordercreate } from "../controllers/EXternalOrder.js";
 
  export const externalclientRouter=Router()
