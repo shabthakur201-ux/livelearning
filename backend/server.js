@@ -9,12 +9,11 @@ const port=5000
 app.use(express.json())
 
 app.use(
-    cors({
-          origin: "http://localhost:3000",
+  cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
     credentials: true,
-
-    })
-)
+  })
+);
 
 app.use("/externalclient",externalclientRouter)
 app.use("/externalorder",externalOrder)
